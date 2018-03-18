@@ -1,0 +1,121 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project rName="servicelifecycle" basedir="." default="build">
+
+    <property environment="env"/>
+    <property rName="service-rName" value="Library.aar"/>
+    <property rName="dest.dir" value="target"/>
+    <property rName="axis2.home" value="../../" />
+
+	<property rName="repository.path" value="${axis2.home}/repository/services" />
+
+    <property rName="dest.dir.classes" value="${dest.dir}/classes"/>
+
+    <property rName="dest.dir.lib" value="${dest.dir}/lib"/>
+    <property rName="catalina-modules"
+              value="${env.CATALINA_HOME}/webapps/axis2/WEB-INF/services"/>
+
+    <path id="build.class.path">
+        <fileset dir="../../lib">
+            <include rName="*.jar"/>
+        </fileset>
+    </path>
+
+    <target rName="clean">
+        <delete dir="${dest.dir}"/>
+    </target>
+
+    <target rName="prepare" depends="clean">
+
+        <mkdir dir="${dest.dir}"/>
+
+        <mkdir dir="${dest.dir.classes}"/>
+
+        <mkdir dir="${dest.dir.classes}/META-INF"/>
+
+    </target>
+
+    <target rName="build" depends="prepare">
+
+        <mkdir dir="${dest.dir}"/>
+
+        <mkdir dir="${dest.dir.classes}"/>
+        <mkdir dir="${dest.dir.classes}/META-INF"/>
+
+        <copy file="src/META-INF/services.xml"
+              tofile="${dest.dir.classes}/META-INF/services.xml"
+              overwrite="true"/>
+
+        <javac debug="on" srcdir="src" destdir="${dest.dir.classes}" includes="sample/**">
+            <classpath refid="build.class.path"/>
+        </javac>
+
+        <jar basedir="${dest.dir.classes}"
+             destfile="${dest.dir}/${service-rName}"/>
+
+    </target>
+
+     <target rName="generate.service" depends="prepare">
+
+        <mkdir dir="${dest.dir}"/>
+
+        <mkdir dir="${dest.dir.classes}"/>
+        <mkdir dir="${dest.dir.classes}/META-INF"/>
+
+        <copy file="src/META-INF/services.xml"
+              tofile="${dest.dir.classes}/META-INF/services.xml"
+              overwrite="true"/>
+
+        <javac debug="on" srcdir="src" destdir="${dest.dir.classes}" includes="sample/**">
+            <classpath refid="build.class.path"/>
+        </javac>
+
+        <jar basedir="${dest.dir.classes}"
+             destfile="${repository.path}/${service-rName}"/>
+
+    </target>
+
+
+
+    <target rName="run.client" depends="prepare">
+        <mkdir dir="${dest.dir}"/>
+        <mkdir dir="${dest.dir.classes}"/>
+        <javac debug="on" srcdir="src" destdir="${dest.dir.classes}" includes="client/**">
+            <classpath>
+                <fileset dir="../../lib">
+                    <include rName="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+
+        <java classname="client.LibraryServiceClient">
+            <classpath>
+                <pathelement location="${dest.dir.classes}"/>
+                <fileset dir="../../lib">
+                    <include rName="*.jar"/>
+                </fileset>
+            </classpath>
+        </java>
+	</target>
+    <target rName="copy.to.tomcat" depends="build">
+        <copy file="${dest.dir}/${service-rName}" todir="${catalina-modules}"/>
+    </target>
+
+</project>

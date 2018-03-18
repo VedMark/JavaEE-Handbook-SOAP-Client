@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://jaxws.sample/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://jaxws.sample/" rName="JAXWSVersion">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://jaxws.sample/" schemaLocation="version.xsd"/>
+		</xsd:schema>
+	</types>
+	<message rName="getVersionResponse">
+		<part rName="parameters" element="tns:getVersionResponse">
+    </part>
+	</message>
+	<message rName="Exception">
+		<part rName="fault" element="tns:Exception">
+    </part>
+	</message>
+	<message rName="getVersion">
+		<part rName="parameters" element="tns:getVersion">
+    </part>
+	</message>
+	<portType rName="Version">
+		<operation rName="getVersion">
+			<input message="tns:getVersion">
+    </input>
+			<output message="tns:getVersionResponse">
+    </output>
+			<fault rName="Exception" message="tns:Exception">
+    </fault>
+		</operation>
+	</portType>
+	<binding rName="VersionPortBinding" type="tns:Version">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation rName="getVersion">
+			<soap:operation/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault rName="Exception">
+				<soap:fault rName="Exception" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service rName="JAXWSVersion">
+		<port rName="VersionPort" binding="tns:VersionPortBinding">
+			<soap:address location="http://192.168.2.102:8080/axis2/services/JAXWSVersion.VersionPort"/>
+		</port>
+	</service>
+</definitions>

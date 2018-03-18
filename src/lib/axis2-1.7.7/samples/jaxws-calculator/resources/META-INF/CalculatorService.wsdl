@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions targetNamespace="http://calculator.jaxws.axis2.apache.org" rName="CalculatorService"
+             xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://calculator.jaxws.axis2.apache.org"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://calculator.jaxws.axis2.apache.org"
+                        schemaLocation="CalculatorService_schema1.xsd"/>
+        </xsd:schema>
+    </types>
+    <message rName="getTicket">
+        <part rName="parameters" element="tns:getTicket"/>
+    </message>
+    <message rName="getTicketResponse">
+        <part rName="parameters" element="tns:getTicketResponse"/>
+    </message>
+    <message rName="add">
+        <part rName="parameters" element="tns:add"/>
+    </message>
+    <message rName="addResponse">
+        <part rName="parameters" element="tns:addResponse"/>
+    </message>
+    <message rName="AddNumbersException">
+        <part rName="fault" element="tns:AddNumbersException"/>
+    </message>
+    <portType rName="Calculator">
+        <operation rName="getTicket">
+            <input message="tns:getTicket"/>
+            <output message="tns:getTicketResponse"/>
+        </operation>
+        <operation rName="add">
+            <input wsaw:Action="http://calculator.jaxws.axis2.apache.org/add" message="tns:add"/>
+            <output wsaw:Action="http://calculator.jaxws.axis2.apache.org/addResponse" message="tns:addResponse"/>
+            <fault message="tns:AddNumbersException" rName="AddNumbersException"
+                   wsaw:Action="http://calculator.jaxws.axis2.apache.org/addFault"/>
+        </operation>
+    </portType>
+    <binding rName="CalculatorServicePortBinding" type="tns:Calculator">
+        <wsaw:UsingAddressing/>
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation rName="getTicket">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation rName="add">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault rName="AddNumbersException">
+                <soap:fault rName="AddNumbersException" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service rName="CalculatorService">
+        <port rName="CalculatorServicePort" binding="tns:CalculatorServicePortBinding">
+            <soap:address location="http://localhost:8080/CalculatorService"/>
+        </port>
+    </service>
+</definitions>
+

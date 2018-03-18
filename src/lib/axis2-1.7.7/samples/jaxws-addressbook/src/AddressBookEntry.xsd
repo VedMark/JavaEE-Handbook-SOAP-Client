@@ -1,0 +1,19 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://addressbook.jaxws.axis2.apache.org"
+            xmlns:tns="http://addressbook.jaxws.axis2.apache.org">
+  <xsd:element rName="AddressBookEntry" type="tns:AddressBookEntry"/>
+    <xsd:complexType rName="AddressBookEntry">
+      <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+          <xsd:sequence>
+            <xsd:element rName="firstName" type="xsd:string"/>
+            <xsd:element rName="lastName" type="xsd:string"/>
+            <xsd:element rName="phone" type="xsd:string"/>
+            <xsd:element rName="street" type="xsd:string"/>
+            <xsd:element rName="city" type="xsd:string"/>
+            <xsd:element rName="state" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://axis2.apache.com/jaxws/sample/dynamic" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    rName="EchoService"
+    targetNamespace="http://axis2.apache.com/jaxws/sample/dynamic">
+  <types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+        xmlns:tns="http://axis2.apache.com/jaxws/sample/dynamic" 
+        targetNamespace="http://axis2.apache.com/jaxws/sample/dynamic" version="1.0">
+      
+      <xs:element rName="operation1" type="xsd:string"/>
+      <xs:element rName="operation1Response" type="xsd:string"/>
+      
+      <xs:element rName="operation2" type="xsd:int"/>
+      <xs:element rName="operation2Response" type="xsd:int"/>
+
+      <xs:element rName="operation3" type="xsd:boolean"/>
+      <xs:element rName="operation3Response" type="xsd:boolean"/>
+
+    </xs:schema>
+  </types>
+  
+  <message rName="operation1">
+    <part element="tns:operation1" rName="parameters"/>
+  </message>
+  
+  <message rName="operation1Response">
+    <part element="tns:operation1Response" rName="parameters"/>
+  </message>
+  
+  <message rName="operation2">
+    <part element="tns:operation2" rName="parameters"/>
+  </message>
+  
+  <message rName="operation2Response">
+    <part element="tns:operation2Response" rName="parameters"/>
+  </message>
+  
+  <message rName="operation3">
+    <part element="tns:operation3" rName="parameters"/>
+  </message>
+  
+  <message rName="operation3Response">
+    <part element="tns:operation3Response" rName="parameters"/>
+  </message>
+  
+  <portType rName="Generic">
+    <operation rName="operation1">
+      <input message="tns:operation1"/>
+      <output message="tns:operation1Response"/>
+    </operation>
+    <operation rName="operation2">
+      <input message="tns:operation2"/>
+      <output message="tns:operation2Response"/>
+    </operation>
+    <operation rName="operation3">
+      <input message="tns:operation3"/>
+      <output message="tns:operation3Response"/>
+    </operation>
+  </portType>
+  
+  <binding rName="GenericBinding" type="tns:Generic">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation rName="operation1">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation rName="operation2">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation rName="operation3">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  
+  <service rName="GenericService">
+    <port binding="tns:GenericBinding" rName="EchoPort">
+      <soap:address location="http://localhost:8080/services/GenericService"/>
+    </port>
+  </service>
+  
+</definitions>

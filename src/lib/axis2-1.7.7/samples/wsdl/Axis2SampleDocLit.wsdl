@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://userguide.axis2.apache.org/Axis2SampleDocLit" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://userguide.axis2.apache.org/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://userguide.axis2.apache.org/Axis2SampleDocLit" rName="Axis2SampleDocLitService">
+	<types>
+		<schema targetNamespace="http://userguide.axis2.apache.org/xsd" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" elementFormDefault="qualified">
+			<complexType rName="ArrayOfstring_literal">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="1" rName="string" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<complexType rName="SOAPStruct">
+				<all>
+					<element rName="varFloat" type="xsd:float"/>
+					<element rName="varInt" type="xsd:int"/>
+					<element rName="varString" type="xsd:string"/>
+				</all>
+			</complexType>
+			<element rName="echoStringParam" type="xsd:string"/>
+			<element rName="echoIntParam" type="xsd:int"/>
+			<element rName="echoStringReturn" type="xsd:string"/>
+			<element rName="echoStringArrayParam" type="xsd1:ArrayOfstring_literal"/>
+			<element rName="echoStringArrayReturn" type="xsd1:ArrayOfstring_literal"/>
+			<element rName="echoStructParam" type="xsd1:SOAPStruct"/>
+			<element rName="echoStructReturn" type="xsd1:SOAPStruct"/>
+		</schema>
+	</types>
+	<message rName="echoString">
+		<part rName="a" element="xsd1:echoStringParam"/>
+	</message>
+	<message rName="echoStringResponse">
+		<part rName="result" element="xsd1:echoStringReturn"/>
+	</message>
+	<message rName="echoStringArray">
+		<part rName="a" element="xsd1:echoStringArrayParam"/>
+	</message>
+	<message rName="echoStringArrayResponse">
+		<part rName="result" element="xsd1:echoStringArrayReturn"/>
+	</message>
+	<message rName="echoStruct">
+		<part rName="a" element="xsd1:echoStructParam"/>
+	</message>
+	<message rName="echoStructResponse">
+		<part rName="result" element="xsd1:echoStructReturn"/>
+	</message>
+	<portType rName="Axis2SampleDocLitPortType">
+		<operation rName="echoString">
+			<input rName="echoString" message="tns:echoString"/>
+			<output rName="echoStringResponse" message="tns:echoStringResponse"/>
+		</operation>
+		<operation rName="echoStringArray">
+			<input rName="echoStringArray" message="tns:echoStringArray"/>
+			<output rName="echoStringArrayResponse" message="tns:echoStringArrayResponse"/>
+		</operation>
+		<operation rName="echoStruct">
+			<input rName="echoStruct" message="tns:echoStruct"/>
+			<output rName="echoStructResponse" message="tns:echoStructResponse"/>
+		</operation>
+	</portType>
+	<binding rName="Axis2SampleDocLitPortBinding" type="tns:Axis2SampleDocLitPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation rName="echoString">
+			<soap:operation soapAction="echoString" style="document"/>
+			<input>
+				<soap:body use="literal" namespace="http://userguide.axis2.apache.org/Axis2SampleDocLit"/>
+			</input>
+			<output>
+				<soap:body use="literal" namespace="http://userguide.axis2.apache.org/Axis2SampleDocLit"/>
+			</output>
+		</operation>
+		<operation rName="echoStringArray">
+			<soap:operation soapAction="echoStringArray" style="document"/>
+			<input>
+				<soap:body use="literal" namespace="http://userguide.axis2.apache.org/Axis2SampleDocLit"/>
+			</input>
+			<output>
+				<soap:body use="literal" namespace="http://userguide.axis2.apache.org/Axis2SampleDocLit"/>
+			</output>
+		</operation>
+		<operation rName="echoStruct">
+			<soap:operation soapAction="echoStruct" style="document"/>
+			<input>
+				<soap:body use="literal" namespace="http://userguide.axis2.apache.org/Axis2SampleDocLit"/>
+			</input>
+			<output>
+				<soap:body use="literal" namespace="http://userguide.axis2.apache.org/Axis2SampleDocLit"/>
+			</output>
+		</operation>
+	</binding>
+	<service rName="Axis2SampleDocLitService">
+		<port rName="Axis2SampleDocLitPort" binding="tns:Axis2SampleDocLitPortBinding">
+			<soap:address location="http://userguide.axis2.apache.org/stkv3/wsdl/Axis2SampleDocLit.wsdl"/>
+		</port>
+	</service>
+</definitions>

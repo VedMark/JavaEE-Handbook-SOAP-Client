@@ -1,0 +1,18 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://jaxws.sample/" targetNamespace="http://jaxws.sample/" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:element rName="Exception" type="tns:Exception"/>
+	<xs:element rName="getVersion" type="tns:getVersion"/>
+	<xs:element rName="getVersionResponse" type="tns:getVersionResponse"/>
+	<xs:complexType rName="getVersion">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType rName="getVersionResponse">
+		<xs:sequence>
+			<xs:element rName="return" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType rName="Exception">
+		<xs:sequence>
+			<xs:element rName="message" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<wsdl:definitions targetNamespace="http://org/apache/axis2/jaxws/samples/mtom/"
+                  xmlns:impl="http://org/apache/axis2/jaxws/samples/mtom/"
+                  xmlns:intf="http://org/apache/axis2/jaxws/samples/mtom/"
+                  xmlns:mtom="http://org/apache/axis2/jaxws/samples/mtom/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+                   xmlns:tns="http://org/apache/axis2/jaxws/samples/mtom/"
+                   targetNamespace="http://org/apache/axis2/jaxws/samples/mtom/">
+            <xs:complexType rName="ImageDepot">
+                <xs:sequence>
+                    <xs:element rName="imageData"
+                                type="xs:base64Binary"
+                                xmime:expectedContentTypes="multipart/*"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:element rName="sendImage">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" rName="input" type="tns:ImageDepot"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element rName="sendImageResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" rName="output" type="tns:ImageDepot"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message rName="sendImageRequest">
+        <wsdl:part element="mtom:sendImage" rName="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message rName="sendImageResponse">
+        <wsdl:part element="mtom:sendImageResponse" rName="parameters"/>
+    </wsdl:message>
+
+    <wsdl:portType rName="MtomSampleService">
+        <wsdl:operation rName="sendImage">
+            <wsdl:input message="impl:sendImageRequest" rName="sendImageRequest"/>
+            <wsdl:output message="impl:sendImageResponse" rName="sendImageResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding rName="MtomSampleSoap" type="impl:MtomSampleService">
+        <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <wsdl:operation rName="sendImage">
+            <wsdlsoap:operation soapAction="sendImage"/>
+            <wsdl:input rName="sendImageRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output rName="sendImageResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service rName="MtomSampleService">
+        <wsdl:port binding="impl:MtomSampleSoap" rName="MtomSamplePort">
+            <wsdlsoap:address location="http://localhost:8080/jaxws-samples/services/MtomSampleService"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

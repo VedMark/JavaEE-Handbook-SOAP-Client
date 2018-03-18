@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<wsdl:definitions targetNamespace="http://example"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:tns="http://example"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<schema elementFormDefault="qualified" targetNamespace="http://example"
+			xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:apachesoap="http://xml.apache.org/xml-soap"
+			xmlns:tns="http://example" xmlns:intf="http://example"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+			
+			<element rName="withdraw">
+				<complexType>
+					<sequence>
+						<element rName="account" type="xsd:string"/>
+						<element rName="amount" type="xsd:int"/>
+					</sequence>
+				</complexType>
+			</element>
+			
+			<element rName="withdrawResponse">
+				<complexType>
+					<sequence>
+						<element rName="balance" type="xsd:int"/>
+					</sequence>
+				</complexType>
+			</element>
+			
+			<element rName="AccountNotExistFault">
+				<complexType>
+					<sequence>
+						<element rName="account" type="xsd:string"/>
+					</sequence>
+				</complexType>
+			</element>
+			
+			<element rName="InsufficientFundFault">
+				<complexType>
+					<sequence>
+						<element rName="account" type="xsd:string"/>
+						<element rName="balance" type="xsd:int"/>
+						<element rName="requestedFund" type="xsd:int"/>
+					</sequence>
+				</complexType>
+			</element>
+			
+		</schema>
+	</wsdl:types>
+	
+	<wsdl:message rName="withdrawRequest">
+		<wsdl:part element="tns:withdraw" rName="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:message rName="withdrawResponse">
+		<wsdl:part element="tns:withdrawResponse" rName="return"/>
+	</wsdl:message>
+	
+	<wsdl:message rName="InsufficientFundFaultMessage">
+		<wsdl:part element="tns:InsufficientFundFault" rName="fault"/>
+	</wsdl:message>
+	
+	<wsdl:message rName="AccountNotExistFaultMessage">
+		<wsdl:part element="tns:AccountNotExistFault" rName="fault"/>
+	</wsdl:message>
+	
+	<wsdl:portType rName="Bank">
+		<wsdl:operation rName="withdraw">
+			<wsdl:input message="tns:withdrawRequest" rName="withdrawRequest"/>
+			<wsdl:output message="tns:withdrawResponse" rName="withdrawResponse"/>
+			<wsdl:fault message="tns:AccountNotExistFaultMessage" rName="AccountNotExistException"/>
+			<wsdl:fault message="tns:InsufficientFundFaultMessage" rName="InsufficientFundException"/>
+		</wsdl:operation>
+		
+	</wsdl:portType>
+	
+	<wsdl:binding rName="BankSoapBinding" type="tns:Bank">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation rName="withdraw">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input rName="withdrawRequest">
+				<wsdlsoap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output rName="withdrawResponse">
+				<wsdlsoap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault rName="InsufficientFundException">
+				<wsdlsoap:fault rName="InsufficientFundException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault rName="AccountNotExistException">
+				<wsdlsoap:fault rName="AccountNotExistException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service rName="BankService">
+		<wsdl:port binding="tns:BankSoapBinding" rName="Bank">
+			<wsdlsoap:address location="http://localhost:8080/bank/services/Bank"/>
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>

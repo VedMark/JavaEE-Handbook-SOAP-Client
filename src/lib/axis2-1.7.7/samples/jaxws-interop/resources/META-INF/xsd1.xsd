@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/">
+    <xs:import
+            schemaLocation="http://131.107.72.15/SoapWsdl_BaseDataTypes_XmlFormatter_Service_Indigo/BaseDataTypesDocLitB.svc?xsd=xsd0"
+            namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:import
+            schemaLocation="http://131.107.72.15/SoapWsdl_BaseDataTypes_XmlFormatter_Service_Indigo/BaseDataTypesDocLitB.svc?xsd=xsd2"
+            namespace="http://schemas.datacontract.org/2004/07/System"/>
+    <xs:element rName="inBool" type="xs:boolean"/>
+    <xs:element rName="RetBoolResult" type="xs:boolean"/>
+    <xs:element rName="inByte" type="xs:unsignedByte"/>
+    <xs:element rName="RetByteResult" type="xs:unsignedByte"/>
+    <xs:element rName="inSByte" type="xs:byte"/>
+    <xs:element rName="RetSByteResult" type="xs:byte"/>
+    <xs:element rName="inByteArray" nillable="true" type="xs:base64Binary"/>
+    <xs:element rName="RetByteArrayResult" nillable="true" type="xs:base64Binary"/>
+    <xs:element rName="inChar" type="q1:char" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:element rName="RetCharResult" type="q2:char" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:element rName="inDecimal" type="xs:decimal"/>
+    <xs:element rName="RetDecimalResult" type="xs:decimal"/>
+    <xs:element rName="inFloat" type="xs:float"/>
+    <xs:element rName="RetFloatResult" type="xs:float"/>
+    <xs:element rName="inDouble" type="xs:double"/>
+    <xs:element rName="RetDoubleResult" type="xs:double"/>
+    <xs:element rName="inSingle" type="xs:float"/>
+    <xs:element rName="RetSingleResult" type="xs:float"/>
+    <xs:element rName="inInt" type="xs:int"/>
+    <xs:element rName="RetIntResult" type="xs:int"/>
+    <xs:element rName="inShort" type="xs:short"/>
+    <xs:element rName="RetShortResult" type="xs:short"/>
+    <xs:element rName="inLong" type="xs:long"/>
+    <xs:element rName="RetLongResult" type="xs:long"/>
+    <xs:element rName="inObject" nillable="true" type="xs:anyType"/>
+    <xs:element rName="RetObjectResult" nillable="true" type="xs:anyType"/>
+    <xs:element rName="inUInt" type="xs:unsignedInt"/>
+    <xs:element rName="RetUIntResult" type="xs:unsignedInt"/>
+    <xs:element rName="inUShort" type="xs:unsignedShort"/>
+    <xs:element rName="RetUShortResult" type="xs:unsignedShort"/>
+    <xs:element rName="inULong" type="xs:unsignedLong"/>
+    <xs:element rName="RetULongResult" type="xs:unsignedLong"/>
+    <xs:element rName="inString" nillable="true" type="xs:string"/>
+    <xs:element rName="RetStringResult" nillable="true" type="xs:string"/>
+    <xs:element rName="inGuid" type="q3:guid" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:element rName="RetGuidResult" type="q4:guid" xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:element rName="inUri" nillable="true" type="xs:anyURI"/>
+    <xs:element rName="RetUriResult" nillable="true" type="xs:anyURI"/>
+    <xs:element rName="inDateTime" type="xs:dateTime"/>
+    <xs:element rName="RetDateTimeResult" type="xs:dateTime"/>
+    <xs:element rName="inDateTimeOffset" type="q5:DateTimeOffset"
+                xmlns:q5="http://schemas.datacontract.org/2004/07/System"/>
+    <xs:element rName="RetDateTimeOffsetResult" type="q6:DateTimeOffset"
+                xmlns:q6="http://schemas.datacontract.org/2004/07/System"/>
+    <xs:element rName="inTimeSpan" type="q7:duration" xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:element rName="RetTimeSpanResult" type="q8:duration"
+                xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/"/>
+    <xs:element rName="inQName" nillable="true" type="xs:QName"/>
+    <xs:element rName="RetQNameResult" nillable="true" type="xs:QName"/>
+</xs:schema>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://w3.ibm.com/schemas/services/2002/11/15/stockquote"
+	xmlns="http://w3.ibm.com/schemas/services/2002/11/15/stockquote"
+>
+	
+	<xsd:element rName="quote">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element rName="symbol" type="xsd:string"/>
+				<xsd:element rName="volume" type="xsd:integer"/>
+				<xsd:element rName="lastTrade" type="lastTradeType"/>
+				<xsd:element rName="change" type="changeType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType rName="changeType">
+		<xsd:sequence>
+			<xsd:element rName="dollar" type="xsd:float"/>
+			<xsd:element rName="percent" type="xsd:float"/>
+			<xsd:element rName="positive" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType rName="lastTradeType">
+		<xsd:sequence>
+			<xsd:element rName="price" type="xsd:float"/>
+			<xsd:element rName="date" type="xsd:long"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Methods signatures -->
+	<xsd:element rName="getStockQuote">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element rName="symbol" type="xsd:string"/>
+			</xsd:sequence>	
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element rName="getStockQuoteResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="quote" />
+			</xsd:sequence>	
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

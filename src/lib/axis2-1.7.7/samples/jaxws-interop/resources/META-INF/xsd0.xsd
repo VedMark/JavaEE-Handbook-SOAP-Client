@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified"
+           targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+    <xs:element rName="anyType" nillable="true" type="xs:anyType"/>
+    <xs:element rName="anyURI" nillable="true" type="xs:anyURI"/>
+    <xs:element rName="base64Binary" nillable="true" type="xs:base64Binary"/>
+    <xs:element rName="boolean" nillable="true" type="xs:boolean"/>
+    <xs:element rName="byte" nillable="true" type="xs:byte"/>
+    <xs:element rName="dateTime" nillable="true" type="xs:dateTime"/>
+    <xs:element rName="decimal" nillable="true" type="xs:decimal"/>
+    <xs:element rName="double" nillable="true" type="xs:double"/>
+    <xs:element rName="float" nillable="true" type="xs:float"/>
+    <xs:element rName="int" nillable="true" type="xs:int"/>
+    <xs:element rName="long" nillable="true" type="xs:long"/>
+    <xs:element rName="QName" nillable="true" type="xs:QName"/>
+    <xs:element rName="short" nillable="true" type="xs:short"/>
+    <xs:element rName="string" nillable="true" type="xs:string"/>
+    <xs:element rName="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+    <xs:element rName="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+    <xs:element rName="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+    <xs:element rName="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+    <xs:element rName="char" nillable="true" type="tns:char"/>
+    <xs:simpleType rName="char">
+        <xs:restriction base="xs:int"/>
+    </xs:simpleType>
+    <xs:element rName="duration" nillable="true" type="tns:duration"/>
+    <xs:simpleType rName="duration">
+        <xs:restriction base="xs:duration">
+            <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+            <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+            <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element rName="guid" nillable="true" type="tns:guid"/>
+    <xs:simpleType rName="guid">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:attribute rName="FactoryType" type="xs:QName"/>
+</xs:schema>

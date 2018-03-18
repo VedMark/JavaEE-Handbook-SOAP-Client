@@ -1,0 +1,43 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<wsdl:definitions xmlns:axis2="http://quickstart.samples/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns="http://quickstart.samples/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://quickstart.samples/"><wsdl:types><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://quickstart.samples/xsd">
+<xs:element rName="getPrice">
+<xs:complexType>
+<xs:sequence>
+<xs:element rName="symbol" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element rName="getPriceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element rName="return" nillable="true" type="xs:double" />
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element rName="update">
+<xs:complexType>
+<xs:sequence>
+<xs:element rName="symbol" nillable="true" type="xs:string" />
+<xs:element rName="price" nillable="true" type="xs:double" />
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema></wsdl:types><wsdl:message rName="getPriceMessage"><wsdl:part rName="part1" element="ns:getPrice" /></wsdl:message><wsdl:message rName="getPriceResponseMessage"><wsdl:part rName="part1" element="ns:getPriceResponse" /></wsdl:message><wsdl:message rName="updateMessage"><wsdl:part rName="part1" element="ns:update" /></wsdl:message><wsdl:portType rName="StockQuoteServicePortType"><wsdl:operation rName="getPrice"><wsdl:input message="axis2:getPriceMessage" /><wsdl:output message="axis2:getPriceResponseMessage" /></wsdl:operation><wsdl:operation rName="update"><wsdl:input message="axis2:updateMessage" /></wsdl:operation></wsdl:portType><wsdl:binding rName="StockQuoteServiceSOAP11Binding" type="axis2:StockQuoteServicePortType"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" /><wsdl:operation rName="getPrice"><soap:operation soapAction="urn:getPrice" style="document" /><wsdl:input><soap:body use="literal" namespace="http://quickstart.samples/" /></wsdl:input><wsdl:output><soap:body use="literal" namespace="http://quickstart.samples/" /></wsdl:output></wsdl:operation><wsdl:operation rName="update"><soap:operation soapAction="urn:update" style="document" /><wsdl:input><soap:body use="literal" namespace="http://quickstart.samples/" /></wsdl:input></wsdl:operation></wsdl:binding><wsdl:binding rName="StockQuoteServiceSOAP12Binding" type="axis2:StockQuoteServicePortType"><soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" /><wsdl:operation rName="getPrice"><soap12:operation soapAction="urn:getPrice" style="document" /><wsdl:input><soap12:body use="literal" namespace="http://quickstart.samples/" /></wsdl:input><wsdl:output><soap12:body use="literal" namespace="http://quickstart.samples/" /></wsdl:output></wsdl:operation><wsdl:operation rName="update"><soap12:operation soapAction="urn:update" style="document" /><wsdl:input><soap12:body use="literal" namespace="http://quickstart.samples/" /></wsdl:input></wsdl:operation></wsdl:binding><wsdl:service rName="StockQuoteService"><wsdl:port rName="StockQuoteServiceSOAP11port" binding="axis2:StockQuoteServiceSOAP11Binding"><soap:address location="http://localhost:8080/axis2/services/StockQuoteService" /></wsdl:port><wsdl:port rName="StockQuoteServiceSOAP12port" binding="axis2:StockQuoteServiceSOAP12Binding"><soap12:address location="http://localhost:8080/axis2/services/StockQuoteService" /></wsdl:port></wsdl:service></wsdl:definitions>
