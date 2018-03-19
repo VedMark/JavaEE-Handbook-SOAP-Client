@@ -37,6 +37,7 @@ class EditingCell extends TableCell<XYChart.Data, String> {
     @Override
     public void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
+        this.setItem(item);
 
         if (empty) {
             setText(null);
@@ -61,7 +62,9 @@ class EditingCell extends TableCell<XYChart.Data, String> {
         textField.setOnKeyPressed(t -> {
             if (t.getCode() == KeyCode.ENTER) {
                 commitEdit(textField.getText());
-                controller.removeCurrentRow();
+                controller.updateRow(this.controller.javaTechnologiesTable.getSelectionModel().getSelectedItem());
+            } else if (t.getCode() == KeyCode.DELETE) {
+                controller.removeRow(this.controller.javaTechnologiesTable.getSelectionModel().getSelectedItem());
             } else if (t.getCode() == KeyCode.ESCAPE) {
                 cancelEdit();
             }

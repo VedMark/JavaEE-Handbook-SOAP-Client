@@ -8,6 +8,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -15,18 +16,40 @@
     <BorderPane id="main_pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
             <MenuBar id="menu_bar" BorderPane.alignment="CENTER">
-            <Menu mnemonicParsing="false" text="Table">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleAddAction" text="Add" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleRemoveAction" text="Remove" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleUpdateAction" text="Update" />
-              </items>
-            </Menu>
-                <Menu id="protocol_menu" mnemonicParsing="false" text="Server">
-                    <MenuItem id="rpc_menu_item" mnemonicParsing="false" onAction="#handleRpcAction" text="RPC" />
-                    <MenuItem id="soap_menu_item" mnemonicParsing="false" onAction="#handleRpcAction" text="SOAP" />
+                <Menu mnemonicParsing="false" text="Table">
+                    <MenuItem mnemonicParsing="false" onAction="#handleAddAction" text="Add">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
+                    <MenuItem mnemonicParsing="false" onAction="#handleRemoveAction" text="Remove">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
+                    <MenuItem mnemonicParsing="false" onAction="#handleUpdateAction" text="Update">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="U" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
                <SeparatorMenuItem mnemonicParsing="false" />
-               <MenuItem mnemonicParsing="false" onAction="#handleConnectAction" text="Connect" />
+               <MenuItem mnemonicParsing="false" onAction="#handleSynchronizeAction" text="Synchronize">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator>
+               </MenuItem>
+                </Menu>
+                <Menu id="protocol_menu" mnemonicParsing="false" text="Server">
+                    <MenuItem id="rpc_menu_item" mnemonicParsing="false" onAction="#handleRpcAction" text="RPC">
+                  <accelerator>
+                     <KeyCodeCombination alt="DOWN" code="R" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
+                    <MenuItem id="soap_menu_item" mnemonicParsing="false" onAction="#handleRpcAction" text="SOAP">
+                  <accelerator>
+                     <KeyCodeCombination alt="DOWN" code="S" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" onAction="#handleConnectAction" text="Connect">
+                  <accelerator>
+                     <KeyCodeCombination alt="DOWN" code="C" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
                 </Menu>
             </MenuBar>
         </top>
