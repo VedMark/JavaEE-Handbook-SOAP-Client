@@ -1,45 +1,73 @@
-import org.apache.axis2.AxisFault;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.ws.axis2.J2EeHandbookServiceStub;
+import org.apache.ws.axis2.J2EeHandbookServiceStub.GetAllTechnologies;
+import org.apache.ws.axis2.J2EeHandbookServiceStub.AddTechnology;
+import org.apache.ws.axis2.J2EeHandbookServiceStub.RemoveTechnology;
+import org.apache.ws.axis2.J2EeHandbookServiceStub.UpdateTechnology;
+import org.apache.ws.axis2.J2EeHandbookServiceStub.GetAllTechnologiesResponse;
+import org.apache.ws.axis2.J2EeHandbookServiceStub.JavaEETechnology;
 
-import java.rmi.RemoteException;
 
 public class SoapProtocolPerformer implements ProtocolPerformer {
     private final static String END_POINT = "http://localhost:8080/axis2/services/J2EeHandbookService?wsdl";
-
     private static final Logger log = LogManager.getLogger(SoapProtocolPerformer.class);
 
-    public void doSomething() {
-        J2EeHandbookServiceStub.Worker worker = new J2EeHandbookServiceStub.Worker();
-        worker.setName("Mark");
-        worker.setSurname("Lahvinovich");
-        worker.setPosition("Lead Engineer");
-        worker.setSalary(20000);
+    public JavaEETechnology[] getAllTechnologies() {
+        J2EeHandbookServiceStub stub;
+        GetAllTechnologies operation = new GetAllTechnologies();
+        GetAllTechnologiesResponse response;
+        JavaEETechnology[] returnedTechnologies = new JavaEETechnology[0];
 
-        J2EeHandbookServiceStub stub = null;
         try {
             stub = new J2EeHandbookServiceStub(END_POINT);
-        } catch (AxisFault axisFault) {
-            log.fatal(axisFault.getMessage());
-            System.exit(1);
+            response = stub.getAllTechnologies(operation);
+            returnedTechnologies = response.get_return();
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
-        J2EeHandbookServiceStub.GetWorkerWithChangedSalary workerOperation = new J2EeHandbookServiceStub.GetWorkerWithChangedSalary();
-        workerOperation.setWorker(worker);
+        return returnedTechnologies;
+    }
 
-        J2EeHandbookServiceStub.GetWorkerWithChangedSalaryResponse response = null;
+    @Override
+    public void insert(JavaEETechnology technology) {
+        J2EeHandbookServiceStub stub;
+        AddTechnology operation = new AddTechnology();
+        operation.setTechnology(technology);
+
         try {
-            response = stub.getWorkerWithChangedSalary(workerOperation);
-        } catch (RemoteException exception) {
-            log.fatal(exception.getMessage());
-            System.exit(1);
+            stub = new J2EeHandbookServiceStub(END_POINT);
+            stub.addTechnology(operation);
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
+    }
 
-        J2EeHandbookServiceStub.Worker returnedWorker = response.get_return();
+    @Override
+    public void delete(JavaEETechnology technology) {
+        J2EeHandbookServiceStub stub;
+        RemoveTechnology operation = new RemoveTechnology();
+        operation.setTechnology(technology);
 
-        System.out.println("Name: " + returnedWorker.getName());
-        System.out.println("Surname: " + returnedWorker.getSurname());
-        System.out.println("Position: " + returnedWorker.getPosition());
-        System.out.println("Salary: " + returnedWorker.getSalary());
+        try {
+            stub = new J2EeHandbookServiceStub(END_POINT);
+            stub.removeTechnology(operation);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Override
+    public void update(JavaEETechnology technology) {
+        J2EeHandbookServiceStub stub;
+        UpdateTechnology operation = new UpdateTechnology();
+        operation.setTechnology(technology);
+
+        try {
+            stub = new J2EeHandbookServiceStub(END_POINT);
+            stub.updateTechnology(operation);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 }
