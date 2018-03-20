@@ -1,28 +1,28 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.ws.axis2.J2EeHandbookServiceStub.JavaEETechnology;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable {
-    private final String DEFAULT_RPC_SERVER = "";
-    private final String DEFAULT_SOAP_SERVER = "http://localhost:8080/axis2/services/J2EeHandbookService?wsdl";
-    private String serverAdress = "";
+    private final String DEFAULT_SERVER = "http://localhost:8080/axis2/services/J2EeHandbookService?wsdl";
+    private String serverAdress = DEFAULT_SERVER;
 
     private static final Logger log = LogManager.getLogger(HandbookClientApp.class);
     private ProtocolPerformer performer = new SoapProtocolPerformer();
@@ -95,7 +95,6 @@ public class Controller implements Initializable {
 
         javaTechnologiesTable.setItems(data);
 
-        showProtocolDialog();
         showConnectionDialog();
         getAllData();
     }
@@ -127,7 +126,6 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleConnectAction() {
-        showProtocolDialog();
         showConnectionDialog();
         getAllData();
     }
@@ -169,27 +167,6 @@ public class Controller implements Initializable {
     @FXML
     private void handleUpdateAction() {
         updateRow(javaTechnologiesTable.getSelectionModel().getSelectedItem());
-    }
-
-    private void showProtocolDialog() {
-        List<String> choices = new ArrayList<>();
-        choices.add("RPC");
-        choices.add("SOAP");
-
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("RPC", choices);
-        dialog.setTitle("Choice Dialog");
-        dialog.setHeaderText("Protocol");
-        dialog.setContentText("Choose a protocol:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(protocol -> {
-            if (protocol.equals("RPC")) {
-                serverAdress = DEFAULT_RPC_SERVER;
-            }
-            else {
-                serverAdress = DEFAULT_SOAP_SERVER;
-                performer = new SoapProtocolPerformer();
-            }
-        });
     }
 
     private void showConnectionDialog() {
